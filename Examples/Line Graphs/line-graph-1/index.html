@@ -25,7 +25,12 @@
 .line {
   fill: none;
   stroke: steelblue;
-  stroke-width: 1.5px;
+  stroke-width: 5px;
+}
+
+.title {
+  font-weight: bold;
+  font: 20px sans-serif;
 }
 
 </style>
@@ -35,8 +40,8 @@
 
 // Set the dimensions of the canvas / graph
 var margin = {top: 30, right: 20, bottom: 30, left: 50},
-    width = 600 - margin.left - margin.right,
-    height = 270 - margin.top - margin.bottom;
+    width = 800 - margin.left - margin.right,
+    height = 350 - margin.top - margin.bottom;
 
 // Parse the date / time
 var parseDate = d3.time.format("%d-%b-%y").parse;
@@ -92,6 +97,15 @@ d3.tsv("data.tsv", function(error, data) {
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
+
+    // Add the title
+    svg.append("text")
+       .attr("class", "title")
+       .attr("x", (width / 2))             
+       .attr("y", 0 - (margin.top / 2))
+       .attr("text-anchor", "middle")  
+       .text("AAPL stock vs Time");
+
 
 });
 
