@@ -45,6 +45,11 @@
     position: absolute;
     width: 50%;
     height: 50%;
+    padding: 1px 5px;
+  padding-top: 1px;
+  padding-right: 5px;
+  padding-bottom: 1px;
+  padding-left: 5px;
 }
 
 #graph {
@@ -59,20 +64,69 @@
     padding:5px;
 }
 
+#button {
+  position: absolute;
+  padding: 1px 5px;
+  padding-top: 1px;
+  padding-right: 5px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  display: inline-block;
+  text-align: center;
+}
+
+.toolbar
+{
+  padding:3px;
+  height:28px;
+}
+
 
 </style>
 <body>
+
 <script src="d3/d3.js"></script>
 
 <div id="header">
 <h1>ODES-Plot Dynamic Testing</h1>
 </div>
 
-<div id="editor">#haven't implemented the read text portion yet</div>
+<div id="editor-container"> 
+  <div class="toolbar">
+                <button id = "runcode" class="btn btn-primary btn-xs">run</button>
+                Select Data file: <input type="file" id = "dataFile" name="img">
+                <script>
+                  
+                </script>
+  </div>
+  <div id="editor">// enter your code here, no need for script tag</div>
+</div>
+
 <script src="ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
     var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");    
+
+    // set the in editor text to be a js file content
+
+    function runCode() {
+      var code = editor.getValue();
+      // grabbed from http://stackoverflow.com/questions/6432984/adding-script-element-to-the-dom-and-have-the-javascript-run
+      var script = document.createElement('script');
+      try {
+        script.appendChild(document.createTextNode(code));
+        document.body.appendChild(script);
+      } catch (e) {
+        script.text = code;
+        document.body.appendChild(script);
+      }
+    }
+
+    // set up event for the runCode button
+    document.getElementById('runcode').addEventListener('click', runCode);
 </script>
+
 
 
 <div id="graph"></div>
@@ -146,7 +200,6 @@ d3.tsv("data.tsv", function(error, data) {
        .attr("y", 0 - (margin.top / 2))
        .attr("text-anchor", "middle")  
        .text("AAPL stock vs Time");
-
 
 });
 
