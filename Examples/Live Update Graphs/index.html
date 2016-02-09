@@ -86,6 +86,8 @@
 <body>
 
 <script src="d3/d3.js"></script>
+<script src="upload.js" type="text/javascript" charset="utf-8"></script>
+<script src="ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 
 <div id="header">
 <h1>ODES-Plot Dynamic Testing</h1>
@@ -94,19 +96,19 @@
 <div id="editor-container"> 
   <div class="toolbar">
                 <button id = "runcode" class="btn btn-primary btn-xs">run</button>
-                Select Data file: <input type="file" id = "dataFile" name="img">
-                <script>
-                  
-                </script>
+                Select Data file: <input type="file" id = "dataFile" >    
   </div>
   <div id="editor">// enter your code here, no need for script tag</div>
 </div>
 
-<script src="ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/javascript");    
+    editor.getSession().setMode("ace/mode/javascript");   
+
+    document.getElementById('dataFile').addEventListener('change', function(e){
+        handleSingleFileSelect(e, editor);
+    }, false); 
 
     // set the in editor text to be a js file content
 
