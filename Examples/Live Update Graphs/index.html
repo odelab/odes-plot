@@ -1,88 +1,9 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
-
-.axis {
-  font: 12px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.axis:hover {
-  fill: red;
-}
-
-.axis--x path {
-  display: none;
-}
-
-.axis-title {
-  font-weight: bold;
-  text-anchor: end;
-}
-
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 5px;
-}
-
-.line:hover {
-  stroke: red;
-}
-
-.title {
-  font-weight: bold;
-  font: 20px sans-serif;
-}
-
-#editor {
-    position: absolute;
-    width: 50%;
-    height: 50%;
-    padding: 1px 5px;
-  padding-top: 1px;
-  padding-right: 5px;
-  padding-bottom: 1px;
-  padding-left: 5px;
-}
-
-#graph {
-    float: right;
-    width: 50%;
-}
-
-#header {
-    font: 16px sans-serif bold;
-    color:steelblue;
-    text-align:center;
-    padding:5px;
-}
-
-#button {
-  position: absolute;
-  padding: 1px 5px;
-  padding-top: 1px;
-  padding-right: 5px;
-  padding-bottom: 1px;
-  padding-left: 5px;
-  display: inline-block;
-  text-align: center;
-}
-
-.toolbar
-{
-  padding:3px;
-  height:28px;
-}
-
-
-</style>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+</head>
 <body>
 
 <script src="d3/d3.js"></script>
@@ -93,12 +14,18 @@
 <h1>ODES-Plot Dynamic Testing</h1>
 </div>
 
-<div id="editor-container"> 
-  <div class="toolbar">
-                <button id = "runcode" class="btn btn-primary btn-xs">run</button>
-                Select Data file: <input type="file" id = "dataFile" >    
-  </div>
-  <div id="editor">var margin = {top: 30, right: 50, bottom: 30, left: 50},
+<div class="row">
+  <div class="col-md-6">
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+             <h3 class="panel-title" style = "padding-bottom: 10px;">Script Editor</h3>
+             <button id = "runcode" class="btn btn-success">Run</button>
+             <a href="#" class="btn btn-primary" type="button" onclick="document.getElementById('dataFile').click(); return false;">Select Script File</a> <input id="dataFile" type="file" style="visibility: hidden; display: none;" />
+        </div>
+        
+        <div class="panel-body">
+        <div id="editor">var margin = {top: 30, right: 50, bottom: 30, left: 50},
     width = screen.width/2- margin.left - margin.right,
     height = screen.height/2 - margin.top - margin.bottom;
 
@@ -166,12 +93,40 @@ d3.tsv("data.tsv", function(error, data) {
        .text("AAPL stock vs Time");
 
 });</div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class = "panel-heading">
+         <h3 class="panel-title" style = "padding-bottom: 10px;">Data Editor</h3>
+         <a href="#" class="btn btn-primary" type="button" onclick="document.getElementById('dataFile_2').click(); return false;">Select Script File</a> <input id="dataFile_2" type="file" style="visibility: hidden; display: none;" />
+      </div>
+      <div class="panel-body">
+        <div id = "editor-2"> test </div>
+      </div>
+    </div>
+        
+    
+  </div>
+  <div class="col-md-6">
+    <div class="panel-heading">
+    <h3 class="panel-title" style = "padding-bottom: 10px;"></h3>
+    </div>
+    <div class="panel-body">
+    <div id="graph"></div>
+  </div>
+  </div>
 </div>
+
 
 <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/javascript");   
+
+    var editor_2 = ace.edit("editor-2");
+    // editor_2.setTheme("ace/theme/monokai");
+    // editor_2.getSession().setMode("ace/mode/javascript"); 
 
     document.getElementById('dataFile').addEventListener('change', function(e){
         handleSingleFileSelect(e, editor);
@@ -194,82 +149,6 @@ d3.tsv("data.tsv", function(error, data) {
 
     // set up event for the runCode button
     document.getElementById('runcode').addEventListener('click', runCode);
-</script>
-
-<div id="graph"></div>
-
-<script type="text/javascript">
-// Set the dimensions of the canvas / graph
-
-// var margin = {top: 30, right: 50, bottom: 30, left: 50},
-//     width = screen.width/2- margin.left - margin.right,
-//     height = screen.height/2 - margin.top - margin.bottom;
-
-// // Parse the date / time
-// var parseDate = d3.time.format("%d-%b-%y").parse;
-
-// // Set the ranges
-// var x = d3.time.scale().range([0, width]);
-// var y = d3.scale.linear().range([height, 0]);
-
-// // Define the axes
-// var xAxis = d3.svg.axis().scale(x)
-//     .orient("bottom"); // labels will appear below the axis line
-
-// var yAxis = d3.svg.axis().scale(y)
-//     .orient("left"); 
-
-// // Define the line
-// var valueline = d3.svg.line()
-//     .x(function(d) { return x(d.date); })
-//     .y(function(d) { return y(d.close); });
-
-// // Adds the svg canvas
-// var svg = d3.select("#graph")
-//     .append("svg")
-//         .attr("width", width + margin.left + margin.right)
-//         .attr("height", height + margin.top + margin.bottom)
-//     .append("g") //group the svg shapes
-//         .attr("transform", 
-//               "translate(" + margin.left + "," + margin.top + ")");
-
-// // Get the data
-// d3.tsv("data.tsv", function(error, data) {
-//     data.forEach(function(d) {
-//         d.date = parseDate(d.date);
-//         d.close = +d.close;
-//     });
-
-//     // Scale the range of the data
-//     x.domain(d3.extent(data, function(d) { return d.date; }));
-//     y.domain([0, d3.max(data, function(d) { return d.close; })]);
-
-//     // Add the valueline path.
-//     svg.append("path")
-//         .attr("class", "line")
-//         .attr("d", valueline(data));
-
-//     // Add the X Axis
-//     svg.append("g")
-//         .attr("class", "x axis")
-//         .attr("transform", "translate(0," + height + ")")
-//         .call(xAxis);
-
-//     // Add the Y Axis
-//     svg.append("g")
-//         .attr("class", "y axis")
-//         .call(yAxis);
-
-//     // Add the title
-//     svg.append("text")
-//        .attr("class", "title")
-//        .attr("x", (width / 2))             
-//        .attr("y", 0 - (margin.top / 2))
-//        .attr("text-anchor", "middle")  
-//        .text("AAPL stock vs Time");
-
-// });
-
 </script>
 
 </body>
