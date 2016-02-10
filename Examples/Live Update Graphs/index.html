@@ -11,7 +11,7 @@
 <script src="ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 
 <div id="header">
-<h1>ODES-Plot Dynamic Testing</h1>
+<h1>odes-plot D3 Notebook</h1>
 </div>
 
 <div class="row">
@@ -25,84 +25,17 @@
         </div>
         
         <div class="panel-body">
-        <div id="editor">var margin = {top: 30, right: 50, bottom: 30, left: 50},
-    width = screen.width/2- margin.left - margin.right,
-    height = screen.height/2 - margin.top - margin.bottom;
-
-// Parse the date / time
-var parseDate = d3.time.format("%d-%b-%y").parse;
-
-// Set the ranges
-var x = d3.time.scale().range([0, width]);
-var y = d3.scale.linear().range([height, 0]);
-
-// Define the axes
-var xAxis = d3.svg.axis().scale(x)
-    .orient("bottom"); // labels will appear below the axis line
-
-var yAxis = d3.svg.axis().scale(y)
-    .orient("left"); 
-
-// Define the line
-var valueline = d3.svg.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.close); });
-
-// Adds the svg canvas
-var svg = d3.select("#graph")
-    .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-    .append("g") //group the svg shapes
-        .attr("transform", 
-              "translate(" + margin.left + "," + margin.top + ")");
-
-// Get the data
-d3.tsv("data.tsv", function(error, data) {
-    data.forEach(function(d) {
-        d.date = parseDate(d.date);
-        d.close = +d.close;
-    });
-
-    // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain([0, d3.max(data, function(d) { return d.close; })]);
-
-    // Add the valueline path.
-    svg.append("path")
-        .attr("class", "line")
-        .attr("d", valueline(data));
-
-    // Add the X Axis
-    svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
-
-    // Add the Y Axis
-    svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis);
-
-    // Add the title
-    svg.append("text")
-       .attr("class", "title")
-       .attr("x", (width / 2))             
-       .attr("y", 0 - (margin.top / 2))
-       .attr("text-anchor", "middle")  
-       .text("AAPL stock vs Time");
-
-});</div>
+        <div id="editor"></div>
         </div>
     </div>
 
     <div class="panel panel-default">
       <div class = "panel-heading">
          <h3 class="panel-title" style = "padding-bottom: 10px;">Data Editor</h3>
-         <a href="#" class="btn btn-primary" type="button" onclick="document.getElementById('dataFile_2').click(); return false;">Select Script File</a> <input id="dataFile_2" type="file" style="visibility: hidden; display: none;" />
+         <a href="#" class="btn btn-primary" type="button" onclick="document.getElementById('dataFile_2').click(); return false;">Select Data File</a> <input id="dataFile_2" type="file" style="visibility: hidden; display: none;" />
       </div>
       <div class="panel-body">
-        <div id = "editor-2"> test </div>
+        <div id = "editor-2"> </div>
       </div>
     </div>
         
@@ -110,7 +43,7 @@ d3.tsv("data.tsv", function(error, data) {
   </div>
   <div class="col-md-6">
     <div class="panel-heading">
-    <h3 class="panel-title" style = "padding-bottom: 10px;"></h3>
+    <h3 class="panel-title text-center" style = "padding-bottom: 10px;">Graph (id = "graph") </h3>
     </div>
     <div class="panel-body">
     <div id="graph"></div>
@@ -132,7 +65,9 @@ d3.tsv("data.tsv", function(error, data) {
         handleSingleFileSelect(e, editor);
     }, false); 
 
-    // set the in editor text to be a js file content
+    document.getElementById('dataFile_2').addEventListener('change', function(e){
+        handleDataFileSelect(e,editor_2);
+    }, false);
 
     function runCode() {
       var code = editor.getValue();
@@ -145,6 +80,12 @@ d3.tsv("data.tsv", function(error, data) {
         script.text = code;
         document.body.appendChild(script);
       }
+    }
+
+    // handle data & create global variable to store data
+    function handleData() {
+      var data_str = editor_2.getValue();
+
     }
 
     // set up event for the runCode button
