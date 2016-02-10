@@ -43,7 +43,7 @@
   </div>
   <div class="col-md-6">
     <div class="panel-heading">
-    <h3 class="panel-title text-center" style = "padding-bottom: 10px;">Graph (id = "graph") </h3>
+    <h3 class="panel-title text-center" style = "padding-bottom: 10px;"></h3>
     </div>
     <div class="panel-body">
     <div id="graph"></div>
@@ -82,10 +82,10 @@
       }
     }
 
-    // handle data & create global variable to store data
-    function handleData() {
+    // extract data from editor_2
+    function extractData() {
       var data_str = editor_2.getValue();
-
+      return data_str;
     }
 
     // set up event for the runCode button
