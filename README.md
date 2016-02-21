@@ -1,7 +1,7 @@
 ## Open Dynamic Engineering and Scientific Plotting Project @ Harvey Mudd College
 
 ![HMC Seal]
-(https://www.hmc.edu/wp-content/themes/hmc-core/images/seal.png)
+(https://www.hmc.edu/about-hmc/wp-content/uploads/sites/2/2013/05/NEW-HMC-SEAL-BLK.png)
 
 This project aims to develop an online publishing platform that enables scientists and engineers to submit paper, data and graph codes, and dynamically interact with plots.
 
