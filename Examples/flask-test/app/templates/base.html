@@ -1,14 +1,39 @@
-<html>
-  <head>
-    {% if title %}
-    <title>{{ title }} - microblog</title>
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+{% if title %}
+    {{ title }} - microblog
     {% else %}
-    <title>Welcome to microblog</title>
-    {% endif %}
-  </head>
-  <body>
-    <div>Microblog: <a href="/index">Home</a></div>
+    Welcome to microblog
+{% endif %}
+{% endblock %}
+
+{% block navbar %}
+	<div class="navbar navbar-fixed-top"> Microblog: <a href="/index">Home</a>	</div>
+{% endblock %}
+
+
+{% block rows %}
+<div class="row">
+   <div class="col-sm-2">
+    </div> 
+      <div class="col-sm-8">
+ 
+    
     <hr>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }} </li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     {% block content %}{% endblock %}
-  </body>
-</html>
+    </div>
+
+	<div class="col-sm-2">
+    </div> 
+</div>
+{% endblock %}
