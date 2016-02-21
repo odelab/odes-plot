@@ -1,0 +1,95 @@
+<html>
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/style.css') }} media="screen" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+</head>
+<body>
+
+<script src={{ url_for('static', filename='d3.js') }}></script>
+<script src={{ url_for('static', filename='upload.js') }}></script>
+<script src={{ url_for('ace', filename='src/ace.js') }}></script>
+
+<div id="header">
+<h1>odes-plot D3 Notebook</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+             <h3 class="panel-title" >Script Editor</h3>
+             <h5> Use extractData() to get string from data editor</h5>
+             <button id = "runcode" class="btn btn-success">Run</button>
+             <a href="#" class="btn btn-primary" type="button" onclick="document.getElementById('dataFile').click(); return false;">Select Script File</a> <input id="dataFile" type="file" style="visibility: hidden; display: none;" />
+        </div>
+        
+        <div class="panel-body">
+        <div id="editor"></div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class = "panel-heading">
+         <h3 class="panel-title" style = "padding-bottom: 10px;">Data Editor</h3>
+         <a href="#" class="btn btn-primary" type="button" onclick="document.getElementById('dataFile_2').click(); return false;">Select Data File</a> <input id="dataFile_2" type="file" style="visibility: hidden; display: none;" />
+      </div>
+      <div class="panel-body">
+        <div id = "editor-2"> </div>
+      </div>
+    </div>
+        
+    
+  </div>
+  <div class="col-md-6">
+    <div class="panel-heading">
+    <h3 class="panel-title text-center" style = "padding-bottom: 10px;"></h3>
+    </div>
+    <div class="panel-body">
+    <div id="graph"></div>
+  </div>
+  </div>
+</div>
+
+
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");   
+
+    var editor_2 = ace.edit("editor-2");
+    // editor_2.setTheme("ace/theme/monokai");
+    // editor_2.getSession().setMode("ace/mode/javascript"); 
+
+    document.getElementById('dataFile').addEventListener('change', function(e){
+        handleSingleFileSelect(e, editor);
+    }, false); 
+
+    document.getElementById('dataFile_2').addEventListener('change', function(e){
+        handleDataFileSelect(e,editor_2);
+    }, false);
+
+    function runCode() {
+      var code = editor.getValue();
+      // grabbed from http://stackoverflow.com/questions/6432984/adding-script-element-to-the-dom-and-have-the-javascript-run
+      var script = document.createElement('script');
+      try {
+        script.appendChild(document.createTextNode(code));
+        document.body.appendChild(script);
+      } catch (e) {
+        script.text = code;
+        document.body.appendChild(script);
+      }
+    }
+
+    // extract data from editor_2
+    function extractData() {
+      var data_str = editor_2.getValue();
+      return data_str;
+    }
+
+    // set up event for the runCode button
+    document.getElementById('runcode').addEventListener('click', runCode);
+</script>
+
+</body>
+</html>
