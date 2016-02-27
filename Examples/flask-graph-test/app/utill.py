@@ -1,4 +1,4 @@
-import hashlib
+import hashlib, os, shutil
 
 def hashFileName(fileName):
     """ return a hashed file name with the same extension, assuming there is
@@ -18,6 +18,19 @@ def hashFileName(fileName):
         new_name = new_name + extension
 
     return new_name
+
+def deleteDirectoryFiles(directory):
+    """ delete all the files and subdirectories in one folder
+        directory input should be an absolute path
+    """
+    for the_file in os.listdir(folder):
+        file_path = os.path.join(folder, the_file)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path): shutil.rmtree(file_path)
+        except Exception, e:
+            print e
 
 
     
