@@ -36,6 +36,10 @@
       <div class="panel-body">
         <div id = "editor-2"> </div>
       </div>
+      <form method=POST enctype=multipart/form-data action="{{ url_for('index') }}">
+    	<input type=file name=file>
+	<input type=submit value=Upload>
+	</form>
     </div>
         
     
