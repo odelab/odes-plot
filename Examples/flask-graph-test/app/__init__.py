@@ -1,5 +1,5 @@
 import os, sys
-
+import utill
 from flask import Flask, request, redirect, url_for, render_template, flash
 from werkzeug import secure_filename
 
@@ -23,7 +23,8 @@ def index():
     if request.method == 'POST':
         file = request.files['file']
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            filename = utill.hashFileName(file.filename) 
+            filename = secure_filename(filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return render_template('index.html',
                            title='d3 Notebook by ODE, UPLOADED!',
