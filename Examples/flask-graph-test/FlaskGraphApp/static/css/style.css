@@ -1,0 +1,108 @@
+
+.axis {
+  font: 12px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis:hover {
+  fill: red;
+}
+
+.axis--x path {
+  display: none;
+}
+
+.axis-title {
+  font-weight: bold;
+  text-anchor: end;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 5px;
+}
+
+.line:hover {
+  stroke: yellow;
+}
+
+.title {
+  font-weight: bold;
+  font: 20px sans-serif;
+}
+
+#editor {
+    position: relative;
+    height: 300px;
+    padding: 1px 5px;
+    padding-top: 1px;
+    padding-right: 5px;
+    padding-bottom: 1px;
+    padding-left: 5px;
+}
+
+#editor-2 {
+    position: relative;
+    height: 300px;
+    padding: 1px 5px;
+    padding-top: 1px;
+    padding-right: 5px;
+    padding-bottom: 1px;
+    padding-left: 5px;
+}
+
+
+#graph {
+  position: relative;
+}
+
+#header {
+    font: 16px sans-serif bold;
+    color:steelblue;
+    text-align:center;
+    padding:5px;
+}
+
+#button {
+  position: absolute;
+  padding: 1px 5px;
+  padding-top: 1px;
+  padding-right: 5px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  display: inline-block;
+  text-align: center;
+}
+
+.toolbar
+{
+  padding:3px;
+  height:28px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}

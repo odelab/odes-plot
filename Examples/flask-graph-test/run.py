@@ -1,2 +1,2 @@
-from app import app
+from FlaskGraphApp import app
 app.run(debug=True)
