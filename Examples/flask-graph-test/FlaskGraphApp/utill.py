@@ -19,7 +19,7 @@ def hashFileName(fileName):
 
     return new_name
 
-def deleteDirectoryFiles(directory):
+def deleteDirectoryFiles(folder):
     """ delete all the files and subdirectories in one folder
         directory input should be an absolute path
     """
@@ -32,5 +32,9 @@ def deleteDirectoryFiles(directory):
         except Exception, e:
             print e
 
+def listIterableContents(iterable):
+    result = ''
+    for each in iterable:
+        result += ' ' + str(each)
+    return result
 
-    

@@ -1,6 +1,14 @@
 import os, sys
 import utill
-from flask import Flask, request, redirect, url_for, render_template, flash
+from flask import (
+    Flask, 
+    request, 
+    redirect, 
+    url_for, 
+    render_template,
+    flash,
+    jsonify
+)
 from werkzeug import secure_filename
 
 import hashlib
@@ -18,21 +26,8 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
-@app.route('/',methods=['GET', 'POST'])
+@app.route('/',methods=['GET'])
 def index():
-    if request.method == 'POST':
-        file = request.files['file']
-        if file and allowed_file(file.filename):
-            filename = utill.hashFileName(file.filename) 
-            filename = secure_filename(filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return render_template('index.html',
-                           title='d3 Notebook by ODE, UPLOADED!',
-                           upload_data_url = url_for('uploaded_file',
-                                                     filename=filename) )
-
-            # TO-DO: ADD ATTRIBUTES TO THE INDEX FUNCTION TO DISPLAY 
-            # UPLOADED FILE URL
     return render_template('index.html',
                            title='d3 Notebook by ODE')
 
@@ -45,6 +40,25 @@ from flask import send_from_directory
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+
+@app.route('/upload_ajax', methods = ['POST'])
+def upload_file_ajax():
+    if request.method == 'POST':
+        file = request.files['file']
+        print file.filename        
+        if file and allowed_file(file.filename):
+            filename = utill.hashFileName(file.filename) 
+            filename = secure_filename(filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            #return render_template('index.html',
+            #              title='d3 Notebook by ODE, UPLOADED!',
+            #              upload_data_url = url_for('uploaded_file',
+            #                                        filename=filename) )
+
+            return jsonify(upload_data_url = url_for('uploaded_file',
+                                                     filename = filename))
+        else:
+            return jsonify(error = 'Illegal extension. Supported types: ' + utill.listIterableContents(ALLOWED_EXTENSIONS))
 
 @app.route('/static/ace/<filename>')
 def ace(filename):

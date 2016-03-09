@@ -1,9 +1,11 @@
 <html>
 <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/style.css') }} media="screen" />
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 </head>
 <body>
-
+  <!-- Seting dynamic app root variable: http://flask.pocoo.org/docs/0.10/patterns/jquery/ -->
+<script type=text/javascript> $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}; </script>
 <script src={{ url_for('static', filename='d3.js') }}></script>
 <script src={{ url_for('static', filename='upload.js') }}></script>
 <script src={{ url_for('ace', filename='src/ace.js') }}></script>
@@ -32,8 +34,8 @@
       <div class = "panel-heading">
          <h3 class="panel-title" style = "padding-bottom: 10px;">Data Editor</h3>
          
-         
-    <form method=POST enctype=multipart/form-data action="{{ url_for('index') }}"> 
+         <!-- TODO: AJAX HERE -->
+    <form id="uploadform" method=POST enctype=multipart/form-data> 
 
       <!--a href="#" class="btn btn-primary" type="button" onclick="document.getElementById('dataFile_2').click(); return false;">Select File</a> <input id="dataFile_2" type="file" style="visibility: hidden; display: none;" -->
          
@@ -46,9 +48,7 @@
 
 
 	 <div>
-		 {% if upload_data_url %}
-		 Data File URL: {{upload_data_url }}
-		 {% endif %}
+		 <div id = "hashed_url"> </div>
     	</div>
       </div>
       <div class="panel-body">
@@ -67,6 +67,40 @@
   </div>
   </div>
 </div>
+
+<!-- jQuery script for ajax file upload -->
+<script type=text/javascript>
+  $(function() {
+    $('#upload_file_submit').click(function() {
+        event.preventDefault();
+        var file_data = new FormData($('#uploadform')[0]);
+        $.ajax({
+            type: 'POST',
+            url: $SCRIPT_ROOT + '/upload_ajax',
+            data: file_data,
+            contentType: false,
+            processData: false,
+            dataType: 'json'
+        }).done(function(data, textStatus, jqXHR){
+            console.log(data);
+            console.log(textStatus);
+            console.log(jqXHR);
+            console.log('Success!');
+            if (data['upload_data_url']) {
+              $("#hashed_url").text('Data file url: '+ data['upload_data_url']);
+            } else {
+              $("#hashed_url").text(data['error']);
+            }
+            
+        }).fail(function(data, textStatus, jqXHR){
+            console.log(data);
+            console.log(textStatus);
+            console.log(jqXHR);
+            alert('error!');
+        });
+    });
+}); 
+</script>
 
 
 <script>
