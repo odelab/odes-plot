@@ -12,4 +12,5 @@ This project is currently in a very preliminary phase. We intend to use d3.js as
 - Flask d3 Notebook: d3 Notebook served using Flask. We introduce Flask as the backend to enable data file submission feature. The submitted file's URL is generated using SHA256 algorithm using hashlib.
 
 ### To-do List:
+- Using plotly.js to turn graphs into dynamic ones
 - Python language interface: interfacing matplotlib with d3.js
