@@ -1,0 +1,56 @@
+(1)
+
+A. False positives are genes which are actually noncoding ORFs but are predicted as real genes. If we want to minimize the number of false positives, we need to find a threshold such that the ORFs that are higher than that threshold are mainly real genes. Among the three choices, 550 is the best one to satisfy this condition.
+
+True positives are genes which are real genes and are predicted as real genes. If we want to maximize this number, we need to pick a threshold such that the ORFs that are higher than that threshold contain the most real genes. Among the three choices, 250 is the best option.
+
+B. 
+2421
+
+
+(2)
+A. 
+
+The template (from 3' to 5')is the following:
+
+3' - ACGTTGCACGTTCAGTCACGTGGACCGTACCCG - 5'
+
+The corresponding reverse complement (from 5' to 3' )is :
+
+5' - TGCAACGTGCAAGTCAGTGCACCTGGCATGGGC - 3'
+
+The primer is:
+
+5’ - TGCAACGTGCAAGTCAGTGC - 3’
+
+The primer will grow from 5' to 3' by the reverse complement sequence.
+
+Since only dATP, dCTP, dGTP and ddTTP are provided, the single stranded product molecule will end after it incoporates a ddTTP as dTTP.
+
+So the resulting product molecule will be: 5' - TGCAACGTGCAAGTCAGTGCACC(T) - 3', which has a length of 24.
+
+B.
+Since all four deoxy-nucleoside triphosphates are provided, the resulting product molecule will be the entire reverse complement sequence:
+
+5' - TGCAACGTGCAAGTCAGTGCACCTGGCATGGGC - 3', which has a length of 33.
+
+C. 
+Since all four deoxy-nucleoside triphosphates and ddTTP are provided with equal concentrations, the resulting molecules will be:
+
+5' - TGCAACGTGCAAGTCAGTGCACC(T) - 3', which has a length of 24
+
+5' - TGCAACGTGCAAGTCAGTGCACCTGGCA(T) - 3', which has a length of 29
+
+5' - TGCAACGTGCAAGTCAGTGCACCTGGCATGGGC - 3', which has a length of 33.
+
+(3)
+A. Yes. In both strands, from 5' to 3' direction, there is no stop codon (TAA, TAG, TGA).  
+B. No. In the top strand, there exists a stop codon TGA from 5' to 3'.
+C. No. In the top strand, there exists a stop codon TGA from 5' to 3'. Although there exists a start codon ATG in the bottom strand, it can code for methionine in the middle of a gene.
+
+(4)
+The first primer is: 5' - GTCATTCTGA - 3'
+The second primer is: 5' - CATGAGTATA - 3'
+
+(5)
+A. 2 hr B. 1 hr C. 2 hr
