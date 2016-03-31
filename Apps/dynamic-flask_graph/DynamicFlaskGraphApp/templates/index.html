@@ -2,6 +2,7 @@
 <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/style.css') }} media="screen" />
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
   <!-- Seting dynamic app root variable: http://flask.pocoo.org/docs/0.10/patterns/jquery/ -->
@@ -23,6 +24,7 @@
              <h5> Use extractData() to get string from data editor; #graph selector for svg target</h5>
              <button id = "runcode" class="btn btn-success">Run</button>
              <a href="#" class="btn btn-primary" type="button" onclick="document.getElementById('dataFile').click(); return false;">Select Script File</a> <input id="dataFile" type="file" style="visibility: hidden; display: none;" />
+             <a href="#" class="btn btn-primary" type="button" onclick="document.getElementById('jsonFile').click(); return false;">Select Plotly JSON</a> <input id="jsonFile" type="file" style="visibility: hidden; display: none;" />
         </div>
         
         <div class="panel-body">
@@ -112,8 +114,19 @@
     // editor_2.setTheme("ace/theme/monokai");
     // editor_2.getSession().setMode("ace/mode/javascript"); 
 
+    var graph_count = 0;
+
     document.getElementById('dataFile').addEventListener('change', function(e){
         handleSingleFileSelect(e, editor);
+    }, false); 
+
+    document.getElementById('jsonFile').addEventListener('change', function(e){
+        graph_count += 1;
+        // create a new container inside graph
+        // with id plotly-n, where n is the count number
+        handlePlotlyJSON(e, 'graph');
+        
+
     }, false); 
 
     document.getElementById('dataFile_2').addEventListener('change', function(e){

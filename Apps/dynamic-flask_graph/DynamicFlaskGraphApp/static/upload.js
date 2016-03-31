@@ -57,5 +57,34 @@ function handleDataFileSelect(evt, editor) {
     }
 }
 
+function handlePlotlyJSON(evt,graphID) {
+  var file = evt.target.files[0]; // first of the FileList object
+  if (file) {
+      var r = new FileReader();
+      r.onload = function(e) { 
+        var contents = e.target.result;
+        // handle plotly part
+        var plotly_graph = JSON.parse(contents);
+        editor.setValue(contents)
+
+        // change the current graphID into a new one
+        if (plotly_graph.layout){
+          Plotly.newPlot(graphID, plotly_graph.data, plotly_graph.layout);
+        } else {
+          Plotly.newPlot(graphID, plotly_graph.data);
+        }
+        
+      }
+
+      // asynchronous readAsText, need onload callback to see the result
+      r.readAsText(file);
+      
+    } else { 
+      alert("Failed to load file");
+      return null;
+    }
+
+}
+
 // trigger
 // document.getElementById('dataFile').addEventListener('change', handleSingleFileSelect, false);
