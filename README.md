@@ -10,7 +10,5 @@ This project is currently in a very preliminary phase. We intend to use d3.js as
 ### Current Progress
 - d3 Notebook: A static page with d3 script editor and data editor. User can update the script in the script editor and get live updated d3 graph on the right side.
 - Flask d3 Notebook: d3 Notebook served using Flask. We introduce Flask as the backend to enable data file submission feature. The submitted file's URL is generated using SHA256 algorithm using hashlib.
-
-### To-do List:
-- Using plotly.js to turn graphs into dynamic ones
-- Python language interface: interfacing matplotlib with d3.js
+- Support plotly format JSON object to turn graphs into dynamic ones
+- Python script to turn matplotlib object to Plotly.js JSON object
