@@ -32,7 +32,7 @@ def mpl_to_json(figure, resize = True, strip_style = False):
     layout = json.dumps(fig['layout'] if 'layout' in fig else [],
                         cls=utils.PlotlyJSONEncoder)
     # make the total json object
-    return json.dumps(fig)
+    return str(fig)
 
 def mpl_to_plotly(figure, resize = True, strip_style = False):
     """ wrapper function for plotly.tools.mpl_to_plotly
@@ -42,7 +42,7 @@ def mpl_to_plotly(figure, resize = True, strip_style = False):
 def saveJSONToFile(name,jsonstring,save_path):
     """ save a json string to file 
     """
-    filepath = os.path.join(save_path,'{}.json'.format(name))
+    filepath = os.path.join(save_path,'{}.txt'.format(name))
     file1 = open(filepath, "w")
     file1.write(jsonstring)
     file1.close

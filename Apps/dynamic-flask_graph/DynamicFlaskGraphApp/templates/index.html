@@ -124,7 +124,10 @@
         graph_count += 1;
         // create a new container inside graph
         // with id plotly-n, where n is the count number
-        handlePlotlyJSON(e, 'graph');
+        d3.select("#graph").append("div")
+          .attr("id", "plotly-".concat(graph_count))
+          .attr("style", "height: ".concat(window.innerHeight/2).concat("px"))
+        handlePlotlyJSON(e, "plotly-".concat(graph_count));
         
 
     }, false); 
