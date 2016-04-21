@@ -4,43 +4,35 @@ This project contains a Python script/library for converting Matplotlib objects 
 
 The website does every rendering things on the client site. Chrome browser is tested and the website works fine. Haven't tested compatibility with other browsers yet.
 
-# Design
+# Design of the Website
 
 ## Web Client-side based
 
-The website accepts 
+The website accepts Plotly JSON objects and d3.script. You can input the d3 scripts in the browser, and you can run the code on the website, and the graph will be shown on the right.
 
-### Submission of Manuscript
+### Submission of data, script and JSON files
 
-Users submit their manuscript including the corresponding data and code for plotting the data. The submitted code and data should be minimal: the least required amount of code and data required to plot the graph shown in the manuscript main body.
+Users can upload the data file, d3.js scripts and Plotly JSON objects to the website. 
 
-Supporting the dependencies used by different users would be potentially troublesome. 
+After user uploads the data file, an unique URL for the data file will be displayed on the screen. The user can use that URL in the d3.js script for accessing the data.
 
-### Viewing Graphs & Data Dynamically
+After user uploads either the d3.js script or the Plotly JSON objects, the editor on the left will also be filled with the script content, so that users can have an idea on what the script contains.
 
-Users can view already submitted manucript. Users have options to dynamically view the data and plot graphs. Users can interact with graphs, i.e., change scales, focus, etc.. Graph and data are separated.
+If users generated multiple graphs, the graphs will be appended below the pervious graphs, so that users can compare the effects of different scripts on the same data.
 
-I think I'll use d3.js as my graphing library.
+### Viewing Graphs & Data Dynamically using Plotly 
 
-## General Graph Data Abstraction
+Because the website uses Plotly, the users have options to dynamically play with the data. Users can interact with graphs, i.e., change scales, domain, ranges, etc.. The graph will display tooltips of the data.
 
-To garantee modularity, the main ploting library will use a general graph data abstraction format. 
+# Design of the Python matplotlib-to-plotly script
 
-We need to first design the methods and values for the abstracted data format. The abstracted graph object will certainly have a lot of getters and setters. We also need to contain format options in the abstracted data object.
+## Plotly JSON Standard
 
-Some example format options include: title, axes, fonts, etc..
+To garantee modularity, the Python-side code library will use the Plotly general graph data JSON abstraction format. A full explanaion of the scheme is here: [Plotly JSON chart schema](http://help.plot.ly/json-chart-schema/).
 
-This data abstraction format will be compatitble with Plotly's.
+The script uses Plotly's helper methods to read the mpl objects, and use Python JSON library to turn the Plotly format to JSON objects. It also provides functions to save JSON to files.
 
-## Compatibility with Multiple Languages
-
-Similar to Plotly, we need to write a different parser for each different language. Right now I plan to provide compatibility for Matlab, Python (matlplotlib), and R. Since I am most familiar with Python, I will right the parser for Python first. 
-
-One choice for the parser design is that I use Javascript to write parsers for all the languages. The parser will not need server support. I am not sure about whether to use node.js or jquery. I need to learn more about the Javascript string manipulation library.
-
-Another choice will be to write parser for that language in that language. For examle, write the Python parser in Python; write the Matlab parser in Matlab and so on. 
-
-I suspect the second method will be easier. I think most of the graphing libraries will be OOP. So writing the parser in that specific language will be easier, as the parser can directly access the methods of that graph object.
+This data abstraction format is compatitble with any Plotly library.
 
 
 
