@@ -1,6 +1,7 @@
 # Using functions provided by Plotly.py
 # Plotly is a great ploting library. It's amazing how extensive this library
 # is.
+# TO-DO: write the panda-to-plotly function
 
 from __future__ import absolute_import
 
@@ -37,6 +38,5 @@ def panda_to_json(figure, resize = True, strip_style = False):
 def panda_to_plotly(figure, resize = True, strip_style = False):
     """ wrapper function for plotly.tools.mpl_to_plotly
     """
-    return tools.panda_to_plotly(figure, resize=resize, strip_style=strip_style)
-
+    pass
 
